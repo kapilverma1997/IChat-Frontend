@@ -1,0 +1,17 @@
+.inputContainer {
+    border-radius: 5px;
+    border: 2px solid var(--outline-color);
+    overflow: hidden;
+    box-shadow: 0 0 4px var(--outline-color); /* Adjust shadow color and intensity */
+    width: 100%;
+}
+
+.inputContainer input {
+    box-sizing: border-box;
+    width: calc(100% - 12px); /* Adjust width to consider padding and border */
+    height: 100%; /* Remove height calculation */
+    padding: 5px; 
+    border: none;
+    outline: none;
+    transition: box-shadow 0.3s ease;
+}

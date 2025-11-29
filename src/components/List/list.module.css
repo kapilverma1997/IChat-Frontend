@@ -1,0 +1,21 @@
+.listContainer{
+    display: flex;
+    justify-content: right;
+    text-align: right;
+    padding-left: 2rem;
+    margin-left: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    max-height: 80vh;
+    overflow: auto
+}
+
+.listContainer::-webkit-scrollbar{
+    display: none;
+}
+
+.list{
+    list-style-type: none;
+    padding: 0;
+}
+

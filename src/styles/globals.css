@@ -1,0 +1,23 @@
+:root {
+    --button-color: rgb(60, 139, 103);
+    --button-hover-color: rgb(20, 92, 60);
+    --form-outline-color: rgb(60, 139, 103);
+    --outline-color: rgb(177, 210, 195);
+    --test-color: rgb(201, 58, 11);
+}
+
+[data-theme="light"] {
+    --bg-primary: #f8f9fa;
+    --bg-secondary: #ffffff;
+    --text-primary: #1a1a2e;
+    --text-secondary: #6b7280;
+    --border-color: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] {
+    --bg-primary: #0f0f1e;
+    --bg-secondary: #1a1a2e;
+    --text-primary: #ffffff;
+    --text-secondary: #9ca3af;
+    --border-color: rgba(255, 255, 255, 0.05);
+}

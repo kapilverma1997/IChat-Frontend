@@ -1,0 +1,25 @@
+.buttonContainer button {
+    display: inline-block;
+    margin-left: 2rem;
+    padding: 7px 12px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    color: #ffffff;
+    background-color: var(--button-color);
+    border: 2px solid var(--button-color);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  }
+  
+  .buttonContainer button:hover {
+    background-color: var(--button-hover-color);
+    border-color: var(--button-hover-color);
+  }
+  
+  .buttonContainer button:active {
+    background-color: var(--button-hover-color);
+    border-color: var(--button-hover-color);
+  }
+  
