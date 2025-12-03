@@ -12,6 +12,8 @@ export const ChatContextProvider = ({ children, user }) => {
 
 
     useEffect(() => {
+        let intervalId
+
         const getMessages = async () => {
             if (!currentChat?._id) {
                 setMessages([])
@@ -25,36 +27,24 @@ export const ChatContextProvider = ({ children, user }) => {
             }
             setMessages(response?.data || [])
         }
+
+        // Initial fetch when chat changes
         getMessages()
+
+        // Poll for new messages every 2 seconds to keep both browsers in sync
+        if (currentChat?._id) {
+            intervalId = setInterval(getMessages, 2000)
+        }
+
+        return () => {
+            if (intervalId) clearInterval(intervalId)
+        }
     }, [currentChat]);
 
     const updateCurrentChat = (chat) => {
         console.log('UPDATING CURRENT CHAT AS ', chat);
         setCurrentChat(chat)
     }
-
-    useEffect(() => {
-        const getUsers = async () => {
-            const response = await getRequest("/api/users")
-            if (response.error) {
-                return console.log("Error fetching users is", response)
-            }
-
-            const pChats = response?.data?.filter((u) => {
-                let isChatCreated = false
-                if (user?._id === u?._id) return false
-
-                if (userChats) {
-                    isChatCreated = userChats?.some((chat) => {
-                        return chat?.members[0] === u?._id || chat?.members[1] === u?._id
-                    })
-                }
-                return !isChatCreated
-            })
-            setPotentialChats(pChats)
-        }
-        getUsers()
-    }, [userChats]);
 
     useEffect(() => {
         const getUserChats = async () => {

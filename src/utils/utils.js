@@ -13,8 +13,21 @@ export const postRequest = async (url, body) => {
         const response = await axios_.post(url, body)
         return response.data
     } catch (error) {
-        const message = error?.response?.data?.message
-        return { error: true, message }
+        // Handle different types of errors
+        if (error.response) {
+            // Server responded with error status
+            const message = error.response?.data?.message || error.response?.data?.error || 'An error occurred'
+            return { error: true, message }
+        } else if (error.request) {
+            // Request was made but no response received
+            if (error.code === 'ECONNABORTED') {
+                return { error: true, message: 'Request timed out. Please try again.' }
+            }
+            return { error: true, message: 'Cannot connect to server. Please check if the backend is running.' }
+        } else {
+            // Something else happened
+            return { error: true, message: error.message || 'An unexpected error occurred' }
+        }
     }
 }
 

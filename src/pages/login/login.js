@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { postRequest } from "../../utils/utils";
 import styles from "./login.module.css"
@@ -11,6 +11,7 @@ export default function Login() {
     const navigate = useNavigate()
     const { loginInfo, setLoginInfo, errorMessage, setErrorMessage, setUser } = useContext(AuthContext)
     const { theme } = useTheme()
+    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
         setErrorMessage(undefined)
@@ -18,14 +19,41 @@ export default function Login() {
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        
+        // Clear previous errors
+        setErrorMessage(undefined)
+        
+        // Validate that loginInfo exists and has required fields
+        if (!loginInfo?.EmailAddress || !loginInfo?.Password) {
+            setErrorMessage("Please enter both email and password.")
+            return
+        }
+
+        setIsLoading(true)
+        
         try {
             const response = await postRequest("/api/users/login", loginInfo)
-            if (response.error) return setErrorMessage(response.message)
-            localStorage.setItem("User", JSON.stringify(response?.data?.user))
-            setUser(response?.data?.user)
-            navigate('/chatpage')
+            
+            if (response.error) {
+                setErrorMessage(response.message || "Login failed. Please check your credentials and try again.")
+                setIsLoading(false)
+                return
+            }
+            
+            // Check if response has the expected structure
+            if (response?.data?.user) {
+                localStorage.setItem("User", JSON.stringify(response.data.user))
+                setUser(response.data.user)
+                navigate('/chatpage')
+            } else {
+                setErrorMessage("Invalid response from server. Please try again.")
+                setIsLoading(false)
+            }
         } catch (error) {
-            console.log('Login failed', error)
+            // This catch handles any unexpected errors that might slip through
+            console.error('Login failed with unexpected error', error)
+            setErrorMessage("An unexpected error occurred. Please try again.")
+            setIsLoading(false)
         }
     }
 
@@ -79,8 +107,12 @@ export default function Login() {
                             />
                         </div>
                         {errorMessage && <div className={styles.errorMessage}>{errorMessage}</div>}
-                        <button type="submit" className={styles.primaryButton}>
-                            Sign In
+                        <button 
+                            type="submit" 
+                            className={styles.primaryButton}
+                            disabled={isLoading}
+                        >
+                            {isLoading ? "Signing in..." : "Sign In"}
                         </button>
                     </form>
 

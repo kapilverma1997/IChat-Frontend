@@ -38,6 +38,12 @@
     border-bottom-color: rgba(255, 255, 255, 0.05);
 }
 
+.sidebarActions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
 .sidebarTitle {
     font-size: 24px;
     font-weight: 700;
@@ -48,6 +54,30 @@
 
 .chatpage.dark .sidebarTitle {
     color: #ffffff;
+}
+
+.newChatButton {
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(102, 126, 234, 0.4);
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.newChatButton:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 12px rgba(102, 126, 234, 0.6);
+}
+
+.newChatButton:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(102, 126, 234, 0.4);
 }
 
 .themeToggle {
@@ -122,6 +152,80 @@
     flex-direction: column;
     padding: 20px;
     min-width: 0;
+}
+
+.newChatForm {
+    padding: 0 20px 16px 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.chatpage.dark .newChatForm {
+    border-bottom-color: rgba(255, 255, 255, 0.05);
+}
+
+.newChatInput {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.newChatInput:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 1px rgba(102, 126, 234, 0.4);
+}
+
+.chatpage.dark .newChatInput {
+    background: rgba(15, 23, 42, 0.8);
+    border-color: rgba(148, 163, 184, 0.4);
+    color: #e5e7eb;
+}
+
+.newChatActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.newChatSubmit {
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: none;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(16, 185, 129, 0.4);
+    transition: all 0.2s ease;
+}
+
+.newChatSubmit:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.6);
+}
+
+.newChatCancel {
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    color: #6b7280;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.2s ease, background 0.2s ease;
+}
+
+.newChatCancel:hover {
+    background: rgba(0, 0, 0, 0.04);
+    color: #111827;
 }
 
 /* Responsive Design */
